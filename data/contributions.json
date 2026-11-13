@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-13T08:04:22+00:00",
-  "source": "github-public-html",
+  "generated_at": "2026-11-13T08:24:24+00:00",
+  "source": "github-graphql",
   "range": {
-    "from": "2025-11-09",
+    "from": "2025-11-14",
     "to": "2026-11-13"
   },
-  "total": 6,
+  "total": 7,
   "active_days": 3,
   "current_streak": 1,
   "longest_streak": 1,
   "busiest": {
     "date": "2026-11-13",
-    "count": 4
+    "count": 5
   },
   "monthly": [
     {
@@ -72,35 +72,10 @@
     {
       "month": "2026-11",
       "label": "NOV",
-      "count": 4
+      "count": 5
     }
   ],
   "days": [
-    {
-      "date": "2025-11-09",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-10",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-11",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-12",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-13",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-11-14",
       "count": 0,
@@ -1923,7 +1898,7 @@
     },
     {
       "date": "2026-11-13",
-      "count": 4,
+      "count": 5,
       "level": 4
     }
   ]
