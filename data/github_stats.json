@@ -1,0 +1,45 @@
+{
+  "username": "bidyasagar29",
+  "public_repos": 2,
+  "total_stars": 0,
+  "followers": 0,
+  "following": 0,
+  "account_created": "2026-07-25T11:34:07Z",
+  "top_languages": [
+    {
+      "name": "JavaScript",
+      "percent": 100.0
+    }
+  ],
+  "repositories": [
+    {
+      "name": "bidyasagar29",
+      "description": "My Creative Portfolio",
+      "url": "https://github.com/bidyasagar29/bidyasagar29",
+      "language": "",
+      "stars": 0,
+      "forks": 0,
+      "updated_at": "2026-11-13T06:21:16Z",
+      "topics": [],
+      "homepage": "",
+      "private": false,
+      "archived": false,
+      "size": 0
+    },
+    {
+      "name": "NEW-by-bidya",
+      "description": "",
+      "url": "https://github.com/bidyasagar29/NEW-by-bidya",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated_at": "2026-09-25T11:46:25Z",
+      "topics": [],
+      "homepage": "",
+      "private": false,
+      "archived": false,
+      "size": 487
+    }
+  ],
+  "generated_at": "2026-11-13T07:15:17+00:00"
+}

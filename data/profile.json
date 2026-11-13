@@ -1,0 +1,83 @@
+{
+  "username": "bidyasagar29",
+  "name": "Bidya Sagar Soren",
+  "brand": "BIDYA",
+  "role": "Visual Designer & Video Editor",
+  "bio": "Independent visual designer and video editor shaping brand systems, campaign visuals and cinematic stories for studios and creators.",
+  "portrait": "assets/portrait.jpg",
+  "tagline": "I create visuals that make ideas feel alive.",
+  "headline": ["I CREATE VISUALS", "THAT MAKE IDEAS"],
+  "headline_accent": "feel alive.",
+  "location": "India",
+  "website": "https://sorenverse.vercel.app",
+  "socials": {
+    "instagram": "https://www.instagram.com/soren.verse_insights",
+    "email": "hello@sorenverse.in"
+  },
+  "portfolio": [
+    {
+      "slug": "aetherial-brand-campaign",
+      "title": "Aetherial",
+      "subtitle": "Brand Campaign",
+      "category": "Graphic Design",
+      "year": "2026",
+      "image": "assets/tiles/aetherial.jpg"
+    },
+    {
+      "slug": "noir-horizons-cinematic-stories",
+      "title": "Noir Horizons",
+      "subtitle": "Cinematic Stories",
+      "category": "Video",
+      "year": "2025",
+      "image": "assets/tiles/noir.jpg"
+    },
+    {
+      "slug": "resonance-conference-visual-system",
+      "title": "Resonance",
+      "subtitle": "Conference Visual System",
+      "category": "Posters",
+      "year": "2026",
+      "image": "assets/tiles/resonance.jpg"
+    }
+  ],
+  "featured_repos": [
+    "NEW-by-bidya"
+  ],
+  "repo_descriptions": {
+    "NEW-by-bidya": "Immersive 3D anime-inspired portfolio built with React, Three.js, GSAP and Lenis, backed by a FastAPI inquiry endpoint."
+  },
+  "services": [
+    "Graphic Design",
+    "Video Editing",
+    "Poster & Campaign Design",
+    "Motion Graphics",
+    "UI/UX Design",
+    "Creative Content"
+  ],
+  "skills": [
+    "Graphic Design",
+    "Video Editing",
+    "Motion Graphics",
+    "Social Media Content",
+    "UI/UX",
+    "Visual Storytelling"
+  ],
+  "tools": [
+    "Photoshop",
+    "Illustrator",
+    "Lightroom",
+    "Canva",
+    "After Effects",
+    "DaVinci Resolve",
+    "Figma"
+  ],
+  "theme": {
+    "background": "#070708",
+    "surface": "#0C0C0E",
+    "border": "#FFFFFF14",
+    "title": "#F5F5F7",
+    "text": "#9E9E9E",
+    "muted": "#66666B",
+    "accent": "#D4E836"
+  }
+}

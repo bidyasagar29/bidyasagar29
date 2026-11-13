@@ -1,0 +1,130 @@
+# Daily refresh of the BIDYA profile cards.
+#
+# Permissions
+#   contents: write  -> required so the workflow can push regenerated cards/data.
+#
+# Secrets
+#   GITHUB_TOKEN     -> provided automatically by GitHub Actions. No repository
+#                       secret needs to be created for the scheduled workflow.
+#   GH_TOKEN         -> optional local-only personal access token for running
+#                       generate_cards.py on your machine. Never commit it.
+name: Update profile cards
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "generate_cards.py"
+      - "data/profile.json"
+      - "requirements.txt"
+      - ".github/workflows/update-profile.yml"
+    paths-ignore:
+      - "cards/**"
+      - "data/github_stats.json"
+      - "data/contributions.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile-cards
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python generate_cards.py
+
+      - name: Validate generated assets
+        run: |
+          python - <<'PY'
+          import glob
+          import json
+          import re
+          import sys
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          root = Path(".")
+          required = [
+              "hero.svg",
+              "stats.svg",
+              "activity.svg",
+              "heatmap.svg",
+              "languages.svg",
+              "practice.svg",
+          ]
+          missing = [name for name in required if not (root / "cards" / name).is_file()]
+          tiles = sorted((root / "cards").glob("work-*.svg"))
+          if len(tiles) != 3:
+              missing.append("exactly 3 work-*.svg")
+
+          invalid = []
+          for path in sorted((root / "cards").glob("*.svg")):
+              try:
+                  ET.parse(path)
+              except ET.ParseError as exc:
+                  invalid.append(f"{path}: {exc}")
+
+          readme = (root / "README.md").read_text(encoding="utf-8")
+          refs = re.findall(r"cards/([A-Za-z0-9._-]+\.svg)", readme)
+          missing_refs = sorted(
+              {name for name in refs if not (root / "cards" / name).is_file()}
+          )
+
+          if missing or invalid or missing_refs:
+              if missing:
+                  print("Missing assets:", ", ".join(missing), file=sys.stderr)
+              if missing_refs:
+                  print(
+                      "README references missing cards:", ", ".join(missing_refs),
+                      file=sys.stderr,
+                  )
+              for item in invalid:
+                  print("Invalid SVG:", item, file=sys.stderr)
+              sys.exit(1)
+
+          contrib = json.loads((root / "data" / "contributions.json").read_text())
+          if not isinstance(contrib.get("total"), int) or contrib["total"] < 0:
+              raise SystemExit("contributions.json is missing a valid total")
+          if len(contrib.get("monthly") or []) != 12:
+              raise SystemExit("contributions.json must contain 12 monthly buckets")
+
+          print(
+              f"Validated {len(glob.glob('cards/*.svg'))} SVG cards, "
+              f"{len(refs)} README image paths and contribution data."
+          )
+          PY
+
+      - name: Commit updated cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cards data/github_stats.json data/contributions.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update profile cards [skip ci]"
+            git push
+          fi
