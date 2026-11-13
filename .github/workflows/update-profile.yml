@@ -8,12 +8,15 @@
 #                       secret needs to be created for the scheduled workflow.
 #   GH_TOKEN         -> optional local-only personal access token for running
 #                       generate_cards.py on your machine. Never commit it.
+
 name: Update profile cards
 
 on:
   schedule:
     - cron: "0 3 * * *"
+
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -22,10 +25,10 @@ on:
       - "data/profile.json"
       - "requirements.txt"
       - ".github/workflows/update-profile.yml"
-    paths-ignore:
-      - "cards/**"
-      - "data/github_stats.json"
-      - "data/contributions.json"
+      - "!cards/**"
+      - "!data/github_stats.json"
+      - "!data/contributions.json"
+
 
 permissions:
   contents: write
