@@ -4,6 +4,7 @@
   "brand": "BIDYA",
   "role": "Visual Designer & Video Editor",
   "bio": "Independent visual designer and video editor shaping brand systems, campaign visuals and cinematic stories for studios and creators.",
+  "about": "Independent visual designer and video editor building brand systems, campaign visuals and cinematic stories for studios, creators and culture-led brands.",
   "portrait": "assets/portrait.jpg",
   "tagline": "I create visuals that make ideas feel alive.",
   "headline": ["I CREATE VISUALS", "THAT MAKE IDEAS"],
@@ -63,21 +64,49 @@
     "Visual Storytelling"
   ],
   "tools": [
-    "Photoshop",
-    "Illustrator",
+    "Adobe Photoshop",
     "Lightroom",
+    "Illustrator",
+    "Figma",
     "Canva",
-    "After Effects",
     "DaVinci Resolve",
-    "Figma"
+    "Premiere Pro",
+    "After Effects",
+    "Web Design",
+    "SEO",
+    "AI Tools"
+  ],
+  "toolkit": [
+    {
+      "label": "Design",
+      "items": ["Adobe Photoshop", "Lightroom", "Illustrator", "Figma", "Canva"]
+    },
+    {
+      "label": "Video",
+      "items": ["DaVinci Resolve", "Premiere Pro", "After Effects"]
+    },
+    {
+      "label": "Web",
+      "items": ["Web Design", "SEO", "UI/UX"]
+    },
+    {
+      "label": "AI workflow",
+      "items": ["AI Tools", "AI Editing", "Prompt-to-visual"]
+    }
+  ],
+  "exploring": [
+    "Creative technology",
+    "AI-powered workflows",
+    "Visual storytelling",
+    "Digital experiences"
   ],
   "theme": {
     "background": "#070708",
     "surface": "#0C0C0E",
     "border": "#FFFFFF14",
     "title": "#F5F5F7",
-    "text": "#9E9E9E",
-    "muted": "#66666B",
+    "text": "#929292",
+    "muted": "#929292",
     "accent": "#D4E836"
   }
 }

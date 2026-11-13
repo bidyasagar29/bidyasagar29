@@ -42,8 +42,8 @@ DEFAULT_THEME = {
     "surface": "#0C0C0E",
     "border": "#FFFFFF14",
     "title": "#F5F5F7",
-    "text": "#9E9E9E",
-    "muted": "#66666B",
+    "text": "#929292",
+    "muted": "#929292",
     "accent": "#D4E836",
 }
 
@@ -954,6 +954,575 @@ def render_hero(profile: dict, stats: dict, theme: dict) -> str:
     return "".join(parts)
 
 
+def render_about(profile: dict, theme: dict) -> str:
+    width, height = 1000, 330
+    pad = 32
+    role = str(profile.get("role") or "").upper()
+    location = str(profile.get("location") or "").upper()
+    website = clean_url(str(profile.get("website") or "")).upper()
+    about = str(profile.get("about") or profile.get("bio") or "").strip()
+    about_lines = wrap_text(about, 600, 11.5, factor=0.52, max_lines=2)
+    services = [
+        str(item).upper()
+        for item in (profile.get("services") or [])
+        if str(item).strip()
+    ][:4]
+
+    parts = [
+        svg_header(width, height, "About BIDYA"),
+        frame(width, height, theme),
+        section_label(pad, 34, "01", "About", theme, anim("fade", "d1")),
+        text_tag(
+            width - pad,
+            34,
+            "INDEPENDENT CREATIVE PRACTICE",
+            size=8.5,
+            fill=theme["muted"],
+            family=MONO,
+            anchor="end",
+            spacing=2.2,
+            css_class=anim("fade", "d1"),
+        ),
+        f'<line x1="{pad}" y1="50" x2="{width - pad}" y2="50" stroke="{theme["border"]}"/>',
+        text_tag(
+            pad,
+            112,
+            "INDEPENDENT",
+            size=42,
+            fill=theme["title"],
+            family=DISPLAY,
+            weight=800,
+            spacing=-1.6,
+            css_class=anim("rise", "d2"),
+        ),
+        text_tag(
+            pad,
+            160,
+            "visual designer",
+            size=44,
+            fill=theme["accent"],
+            family=SERIF,
+            weight=400,
+            italic=True,
+            css_class=anim("rise", "d3"),
+        ),
+        text_tag(
+            pad,
+            198,
+            "& video editor.",
+            size=30,
+            fill=theme["title"],
+            family=SERIF,
+            weight=400,
+            italic=True,
+            css_class=anim("fade", "d4"),
+        ),
+    ]
+
+    for index, line in enumerate(about_lines):
+        parts.append(
+            text_tag(
+                pad,
+                238 + index * 19,
+                line,
+                size=11.5,
+                fill=theme["text"],
+                family=BODY,
+                css_class=anim("fade", "d5"),
+            )
+        )
+
+    parts.extend(
+        [
+            f'<line x1="{pad}" y1="284" x2="{width - pad}" y2="284" stroke="{theme["border"]}"/>',
+            accent_mark(pad, 298, theme, 5, anim("fade", "d6")),
+            text_tag(
+                pad + 14,
+                306,
+                " / ".join(services),
+                size=8.5,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=2,
+                css_class=anim("fade", "d6"),
+            ),
+            f'<line x1="700" y1="70" x2="700" y2="284" stroke="{theme["border"]}"/>',
+            accent_mark(724, 78, theme, 6, anim("fade", "d2")),
+            text_tag(
+                738,
+                86,
+                "PROFILE / 01",
+                size=8,
+                fill=theme["accent"],
+                family=MONO,
+                spacing=1.8,
+                css_class=anim("fade", "d2"),
+            ),
+        ]
+    )
+
+    meta = [
+        ("ROLE", role, 128, 146),
+        ("BASED IN", location, 186, 204),
+        ("PORTFOLIO", website, 244, 262),
+    ]
+    for label, value, label_y, value_y in meta:
+        parts.append(
+            text_tag(
+                724,
+                label_y,
+                label,
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=1.6,
+                css_class=anim("fade", "d4"),
+            )
+        )
+        for index, line in enumerate(wrap_text(value, 236, 11, factor=0.58, max_lines=2)):
+            parts.append(
+                text_tag(
+                    724,
+                    value_y + index * 15,
+                    line,
+                    size=11,
+                    fill=theme["title"],
+                    family=MONO,
+                    spacing=1.2,
+                    css_class=anim("fade", "d4"),
+                )
+            )
+
+    parts.append(
+        text_tag(
+            width - pad,
+            306,
+            "OPEN FOR SELECT PROJECTS",
+            size=8,
+            fill=theme["accent"],
+            family=MONO,
+            anchor="end",
+            spacing=1.8,
+            css_class=anim("fade", "d6"),
+        )
+    )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def render_work_intro(profile: dict, theme: dict) -> str:
+    width, height = 1000, 170
+    pad = 32
+
+    return "".join(
+        [
+            svg_header(width, height, "Selected work"),
+            frame(width, height, theme),
+            section_label(pad, 34, "02", "Selected work", theme, anim("fade", "d1")),
+            text_tag(
+                width - pad,
+                34,
+                "SORENVERSE / ARCHIVE",
+                size=8.5,
+                fill=theme["muted"],
+                family=MONO,
+                anchor="end",
+                spacing=2.2,
+                css_class=anim("fade", "d1"),
+            ),
+            f'<line x1="{pad}" y1="50" x2="{width - pad}" y2="50" stroke="{theme["border"]}"/>',
+            text_tag(
+                pad,
+                112,
+                "SELECTED",
+                size=42,
+                fill=theme["title"],
+                family=DISPLAY,
+                weight=800,
+                spacing=-1.6,
+                css_class=anim("rise", "d2"),
+            ),
+            text_tag(
+                414,
+                116,
+                "work.",
+                size=46,
+                fill=theme["accent"],
+                family=SERIF,
+                weight=400,
+                italic=True,
+                css_class=anim("rise", "d3"),
+            ),
+            text_tag(
+                width - pad,
+                96,
+                "GRAPHIC DESIGN / VIDEO EDITING",
+                size=8.5,
+                fill=theme["muted"],
+                family=MONO,
+                anchor="end",
+                spacing=1.8,
+                css_class=anim("fade", "d2"),
+            ),
+            text_tag(
+                width - pad,
+                112,
+                "BRANDING / CAMPAIGNS / MOTION",
+                size=8.5,
+                fill=theme["muted"],
+                family=MONO,
+                anchor="end",
+                spacing=1.8,
+                css_class=anim("fade", "d2"),
+            ),
+            f'<line x1="{pad}" y1="142" x2="{width - pad}" y2="142" stroke="{theme["border"]}"/>',
+            text_tag(
+                pad,
+                160,
+                "THREE SELECTED PROJECTS \u2014 2025 / 2026",
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=2,
+                css_class=anim("fade", "d4"),
+            ),
+            text_tag(
+                width - pad,
+                160,
+                "FULL ARCHIVE AT SORENVERSE",
+                size=8,
+                fill=theme["text"],
+                family=MONO,
+                anchor="end",
+                spacing=2,
+                css_class=anim("fade", "d4"),
+            ),
+            "</svg>",
+        ]
+    )
+
+
+def render_toolkit(profile: dict, theme: dict) -> str:
+    width, height = 1000, 310
+    pad = 32
+    inner = width - pad * 2
+    groups = list(profile.get("toolkit") or [])
+    if not groups:
+        groups = [
+            {
+                "label": "Tools",
+                "items": [str(item) for item in (profile.get("tools") or [])][:5],
+            }
+        ]
+    groups = groups[:4]
+    column = inner / 4
+
+    parts = [
+        svg_header(width, height, "Creative toolkit"),
+        frame(width, height, theme),
+        section_label(pad, 34, "03", "Creative toolkit", theme, anim("fade", "d1")),
+        text_tag(
+            width - pad,
+            34,
+            "TOOLS & TECHNOLOGIES",
+            size=8.5,
+            fill=theme["muted"],
+            family=MONO,
+            anchor="end",
+            spacing=2.2,
+            css_class=anim("fade", "d1"),
+        ),
+        f'<line x1="{pad}" y1="50" x2="{width - pad}" y2="50" stroke="{theme["border"]}"/>',
+    ]
+
+    for index, group in enumerate(groups):
+        divider = pad + column * index
+        content_x = pad if index == 0 else divider + 24
+        if index:
+            parts.append(
+                f'<line x1="{divider:.1f}" y1="70" x2="{divider:.1f}" y2="266" '
+                f'stroke="{theme["border"]}"/>'
+            )
+        parts.append(
+            text_tag(
+                content_x,
+                84,
+                str(group.get("label") or "").upper(),
+                size=8.5,
+                fill=theme["accent"],
+                family=MONO,
+                spacing=2.2,
+                css_class=anim("fade", f"d{index + 2}"),
+            )
+        )
+        for item_index, item in enumerate(group.get("items") or []):
+            parts.append(
+                text_tag(
+                    content_x,
+                    116 + item_index * 26,
+                    str(item).upper(),
+                    size=12,
+                    fill=theme["title"],
+                    family=DISPLAY,
+                    weight=700,
+                    spacing=-0.2,
+                    css_class=anim("rise", f"d{min(item_index + 2, 8)}"),
+                )
+            )
+
+    parts.extend(
+        [
+            f'<line x1="{pad}" y1="286" x2="{width - pad}" y2="286" stroke="{theme["border"]}"/>',
+            text_tag(
+                pad,
+                302,
+                "SELECTED TOOLS \u2014 BRAND / FILM / DIGITAL",
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=2,
+                css_class=anim("fade", "d6"),
+            ),
+            text_tag(
+                width - pad,
+                302,
+                "ADOBE / DAVINCI / FIGMA / AI",
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                anchor="end",
+                spacing=2,
+                css_class=anim("fade", "d6"),
+            ),
+            "</svg>",
+        ]
+    )
+    return "".join(parts)
+
+
+def render_exploring(profile: dict, theme: dict) -> str:
+    width, height = 1000, 270
+    pad = 32
+    inner = width - pad * 2
+    items = [
+        str(item).strip()
+        for item in (profile.get("exploring") or [])
+        if str(item).strip()
+    ][:4]
+    if not items:
+        items = [
+            "Creative technology",
+            "AI-powered workflows",
+            "Visual storytelling",
+            "Digital experiences",
+        ]
+    column = inner / 4
+    updated = today_utc().strftime("%b %Y").upper()
+
+    parts = [
+        svg_header(width, height, "Currently exploring"),
+        frame(width, height, theme),
+        section_label(pad, 34, "06", "Currently exploring", theme, anim("fade", "d1")),
+        text_tag(
+            width - pad,
+            34,
+            "ONGOING RESEARCH",
+            size=8.5,
+            fill=theme["muted"],
+            family=MONO,
+            anchor="end",
+            spacing=2.2,
+            css_class=anim("fade", "d1"),
+        ),
+        f'<line x1="{pad}" y1="50" x2="{width - pad}" y2="50" stroke="{theme["border"]}"/>',
+        text_tag(
+            pad,
+            112,
+            "WHERE THE WORK",
+            size=42,
+            fill=theme["title"],
+            family=DISPLAY,
+            weight=800,
+            spacing=-1.6,
+            css_class=anim("rise", "d2"),
+        ),
+        text_tag(
+            716,
+            116,
+            "is heading.",
+            size=46,
+            fill=theme["accent"],
+            family=SERIF,
+            weight=400,
+            italic=True,
+            css_class=anim("rise", "d3"),
+        ),
+        f'<line x1="{pad}" y1="152" x2="{width - pad}" y2="152" stroke="{theme["border"]}"/>',
+    ]
+
+    for index, item in enumerate(items):
+        divider = pad + column * index
+        content_x = pad if index == 0 else divider + 18
+        if index:
+            parts.append(
+                f'<line x1="{divider:.1f}" y1="170" x2="{divider:.1f}" y2="228" '
+                f'stroke="{theme["border"]}"/>'
+            )
+        parts.append(
+            text_tag(
+                content_x,
+                186,
+                f"{index + 1:02d}",
+                size=8,
+                fill=theme["accent"],
+                family=MONO,
+                spacing=1.8,
+                css_class=anim("fade", f"d{index + 2}"),
+            )
+        )
+        for line_index, line in enumerate(
+            wrap_text(item.upper(), 200, 12, factor=0.9, max_lines=2)
+        ):
+            parts.append(
+                text_tag(
+                    content_x,
+                    210 + line_index * 16,
+                    line,
+                    size=12,
+                    fill=theme["title"],
+                    family=DISPLAY,
+                    weight=700,
+                    spacing=-0.2,
+                    css_class=anim("rise", f"d{min(index + 2, 8)}"),
+                )
+            )
+
+    parts.extend(
+        [
+            f'<line x1="{pad}" y1="242" x2="{width - pad}" y2="242" stroke="{theme["border"]}"/>',
+            text_tag(
+                pad,
+                258,
+                "A ROLLING STUDIO NOTE",
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=2,
+                css_class=anim("fade", "d6"),
+            ),
+            text_tag(
+                width - pad,
+                258,
+                f"UPDATED \u2014 {updated}",
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                anchor="end",
+                spacing=2,
+                css_class=anim("fade", "d6"),
+            ),
+            "</svg>",
+        ]
+    )
+    return "".join(parts)
+
+
+def render_connect(profile: dict, theme: dict) -> str:
+    width, height = 1000, 200
+    pad = 32
+    socials = profile.get("socials") or {}
+    website = clean_url(str(profile.get("website") or "")).upper()
+    instagram = clean_url(str(socials.get("instagram") or ""))
+    handle = instagram.split("/")[-1] if instagram else ""
+    email = str(socials.get("email") or "").upper()
+
+    rows = [
+        ("PORTFOLIO", website, 86, 102),
+        ("INSTAGRAM", f"@{handle}".upper(), 128, 144),
+        ("EMAIL", email, 168, 184),
+    ]
+
+    parts = [
+        svg_header(width, height, "Connect"),
+        frame(width, height, theme),
+        section_label(pad, 34, "07", "Connect", theme, anim("fade", "d1")),
+        text_tag(
+            width - pad,
+            34,
+            "OPEN FOR SELECT PROJECTS",
+            size=8.5,
+            fill=theme["accent"],
+            family=MONO,
+            anchor="end",
+            spacing=2.2,
+            css_class=anim("fade", "d1"),
+        ),
+        f'<line x1="{pad}" y1="50" x2="{width - pad}" y2="50" stroke="{theme["border"]}"/>',
+        text_tag(
+            pad,
+            112,
+            "LET'S MAKE",
+            size=42,
+            fill=theme["title"],
+            family=DISPLAY,
+            weight=800,
+            spacing=-1.6,
+            css_class=anim("rise", "d2"),
+        ),
+        text_tag(
+                444,
+                116,
+                "something.",
+            size=46,
+            fill=theme["accent"],
+            family=SERIF,
+            weight=400,
+            italic=True,
+            css_class=anim("rise", "d3"),
+        ),
+        text_tag(
+            pad,
+            158,
+            "COLLABORATIONS / COMMISSIONS / CREATIVE DIRECTION",
+            size=8.5,
+            fill=theme["muted"],
+            family=MONO,
+            spacing=2,
+            css_class=anim("fade", "d4"),
+        ),
+        f'<line x1="700" y1="70" x2="700" y2="188" stroke="{theme["border"]}"/>',
+    ]
+
+    for label, value, label_y, value_y in rows:
+        parts.append(
+            text_tag(
+                724,
+                label_y,
+                label,
+                size=8,
+                fill=theme["muted"],
+                family=MONO,
+                spacing=1.6,
+                css_class=anim("fade", "d2"),
+            )
+        )
+        parts.append(
+            text_tag(
+                724,
+                value_y,
+                value,
+                size=10.5,
+                fill=theme["title"],
+                family=MONO,
+                spacing=1.2,
+                css_class=anim("fade", "d2"),
+            )
+        )
+
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 def render_stats(stats: dict, theme: dict) -> str:
     width, height = 1000, 210
     pad = 32
@@ -970,7 +1539,7 @@ def render_stats(stats: dict, theme: dict) -> str:
     parts = [
         svg_header(width, height, "GitHub index"),
         frame(width, height, theme),
-        section_label(pad, 34, "01", "GitHub index", theme, anim("fade", "d1")),
+        section_label(pad, 34, "04", "GitHub activity", theme, anim("fade", "d1")),
         text_tag(
             width - pad,
             34,
@@ -1111,7 +1680,7 @@ def render_activity(contrib: dict, theme: dict) -> str:
     parts = [
         svg_header(width, height, "GitHub activity"),
         frame(width, height, theme),
-        section_label(pad, 34, "02", "GitHub activity", theme, anim("fade", "d1")),
+        section_label(pad, 34, "04", "Contribution streak", theme, anim("fade", "d1")),
         text_tag(
             width - pad,
             34,
@@ -1329,7 +1898,7 @@ def render_heatmap(contrib: dict, theme: dict) -> str:
     parts = [
         svg_header(width, height, "Contribution heatmap"),
         frame(width, height, theme),
-        section_label(pad, 34, "03", "Contribution map", theme, anim("fade", "d1")),
+        section_label(pad, 34, "04", "Contribution map", theme, anim("fade", "d1")),
         text_tag(
             width - pad,
             34,
@@ -1490,7 +2059,7 @@ def render_languages(stats: dict, theme: dict, min_height: int = 0) -> str:
     parts = [
         svg_header(width, height, "Language index"),
         frame(width, height, theme),
-        section_label(pad, 34, "05", "Language index", theme, anim("fade", "d1")),
+        section_label(pad, 34, "04", "Language index", theme, anim("fade", "d1")),
         text_tag(
             width - pad,
             34,
@@ -1646,7 +2215,7 @@ def render_practice(profile: dict, theme: dict, min_height: int = 0) -> str:
     parts = [
         svg_header(width, height, "Creative practice"),
         frame(width, height, theme),
-        section_label(pad, 34, "06", "Practice", theme, anim("fade", "d1")),
+        section_label(pad, 34, "03", "Practice", theme, anim("fade", "d1")),
         text_tag(
             width - pad,
             34,
@@ -1847,7 +2416,7 @@ def render_repo(
         svg_header(width, height, f"Featured repository \u2014 {name}"),
         frame(width, height, theme),
         section_label(
-            pad, 34, "04", "Featured repository", theme, anim("fade", "d1")
+            pad, 34, "05", "Featured repository", theme, anim("fade", "d1")
         ),
         text_tag(
             width - pad,
@@ -2009,21 +2578,27 @@ def main(argv=None) -> int:
     (args.out / "heatmap.svg").write_text(
         render_heatmap(contributions, theme), encoding="utf-8"
     )
-    languages_svg = render_languages(stats, theme)
-    practice_svg = render_practice(profile, theme)
-
-    def svg_height(markup: str) -> int:
-        match = re.search(r'height="(\d+)"', markup)
-        return int(match.group(1)) if match else 0
-
-    pair_height = max(svg_height(languages_svg), svg_height(practice_svg))
-    if svg_height(languages_svg) < pair_height:
-        languages_svg = render_languages(stats, theme, min_height=pair_height)
-    if svg_height(practice_svg) < pair_height:
-        practice_svg = render_practice(profile, theme, min_height=pair_height)
-
-    (args.out / "languages.svg").write_text(languages_svg, encoding="utf-8")
-    (args.out / "practice.svg").write_text(practice_svg, encoding="utf-8")
+    (args.out / "about.svg").write_text(
+        render_about(profile, theme), encoding="utf-8"
+    )
+    (args.out / "selected-work.svg").write_text(
+        render_work_intro(profile, theme), encoding="utf-8"
+    )
+    (args.out / "toolkit.svg").write_text(
+        render_toolkit(profile, theme), encoding="utf-8"
+    )
+    (args.out / "exploring.svg").write_text(
+        render_exploring(profile, theme), encoding="utf-8"
+    )
+    (args.out / "connect.svg").write_text(
+        render_connect(profile, theme), encoding="utf-8"
+    )
+    (args.out / "languages.svg").write_text(
+        render_languages(stats, theme), encoding="utf-8"
+    )
+    (args.out / "practice.svg").write_text(
+        render_practice(profile, theme), encoding="utf-8"
+    )
 
     for index, project in enumerate(portfolio):
         slug = safe_slug(project.get("slug") or project.get("title") or index)
@@ -2053,3 +2628,4 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
