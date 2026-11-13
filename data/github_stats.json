@@ -8,7 +8,11 @@
   "top_languages": [
     {
       "name": "JavaScript",
-      "percent": 100.0
+      "percent": 99.8
+    },
+    {
+      "name": "Python",
+      "percent": 0.2
     }
   ],
   "repositories": [
@@ -16,15 +20,15 @@
       "name": "bidyasagar29",
       "description": "My Creative Portfolio",
       "url": "https://github.com/bidyasagar29/bidyasagar29",
-      "language": "",
+      "language": "Python",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2026-11-13T06:21:16Z",
+      "updated_at": "2026-11-13T07:46:49Z",
       "topics": [],
       "homepage": "",
       "private": false,
       "archived": false,
-      "size": 0
+      "size": 1
     },
     {
       "name": "NEW-by-bidya",
@@ -41,5 +45,5 @@
       "size": 487
     }
   ],
-  "generated_at": "2026-11-13T07:15:17+00:00"
+  "generated_at": "2026-11-13T07:47:02+00:00"
 }
